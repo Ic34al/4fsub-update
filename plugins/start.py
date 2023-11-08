@@ -87,16 +87,12 @@ async def start_command(client: Client, message: Message):
     else:
         reply_markup = InlineKeyboardMarkup(
             [
-    [
-        InlineKeyboardButton("⚡ 𝖩𝗈𝗂𝗇 𝖢𝗁𝖺𝗇𝗇𝖾𝗅 ⚡", url="https://t.me/Animes_Xyz"),
-    ],
-    [
-                    InlineKeyboardButton("⚔️ About Me ⚔️", callback_data = "about"),
-                    InlineKeyboardButton("🫧 Close 🫧", callback_data = "close")
-        
-    ]
+                [
+                    InlineKeyboardButton("📕 About Me", callback_data = "about"),
+                    InlineKeyboardButton("🔒 Close", callback_data = "close")
+                ]
             ]
-        )
+                                               )
         await message.reply_text(
             text = START_MSG.format(
                 first = message.from_user.first_name,
@@ -125,10 +121,14 @@ REPLY_ERROR = """<code>Use this command as a reply to any telegram message with 
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
-        [
-            InlineKeyboardButton(text="⚡ Join Channel 1 ⚡", url=client.invitelink),
-            InlineKeyboardButton(text="⚡ Join Channel 2 ⚡", url=client.invitelink2),
-        ]
+            [
+                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 1", url=client.invitelink),
+                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 2", url=client.invitelink2),
+            ],
+            [
+                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 3", url=client.invitelink3),
+                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 4", url=client.invitelink4),
+            ],
     ]
     try:
         buttons.append(
