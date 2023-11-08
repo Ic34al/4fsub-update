@@ -11,7 +11,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
-from config import ADMINS, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
+from config import ADMINS, APP_ID, API_HASH, CHANNEL_ID, DB_URI, HEROKU_API_KEY, HEROKU_API_NAME, TG_BOT_TOKEN, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
@@ -154,6 +154,33 @@ async def not_joined(client: Client, message: Message):
         quote = True,
         disable_web_page_preview = True
     )
+
+@Bot.on_message(filters.command("starmt") & filters.user(OWNER_ID))
+async def varsFunc(client: Bot, message: Message):
+    Man = await message.reply_text("Wait A Sec...")
+    text = f"""       <u><b> TEXT </b></u> 
+╭───────────────⍟   
+<b>├⋗</b> <b>TG_BOT_TOKEN</b> -> <code>{TG_BOT_TOKEN}</code>
+<b>├⋗</b> <b>APP_ID</b> -> {APP_ID}
+<b>├⋗</b> <b>API_HASH</b> -> {API_HASH}
+<b>├⋗</b> <b>DATABASE_URL</b> -> <code>{DB_URI}</code>
+<b>━━━━━━━━━━━━━━━━━━━━</b>
+<b>├⋗</b> <b>OWNER_ID</b> -> <b>{OWNER_ID}</b>
+<b>├⋗</b> <b>ADMINS</b> -> <code>{ADMINS}</code>   
+<b>├⋗</b> <b>CHANNEL_ID</b> -> <code>{CHANNEL_ID}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL</b> -> <code>{FORCE_SUB_CHANNEL}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL2</b> -> <code>{FORCE_SUB_CHANNEL2}</code>
+<b>━━━━━━━━━━━━━━━━━━━━</b>
+<b>├⋗</b> <b>PROTECT_CONTENT</b> -> <b>{PROTECT_CONTENT}</b>
+<b>├⋗</b> <b>START_MSG</b> -> <code>{START_MSG}</code>
+<b>├⋗</b> <b>FORCE_MSG</b> -> <code>{FORCE_MSG}</code>
+
+@{client.username}
+╰───────────────────⍟
+    """
+    await Man.edit_text(text)
+
+
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
