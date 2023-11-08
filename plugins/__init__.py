@@ -7,8 +7,12 @@
 
 import os
 from aiohttp import web
+from distutils.util import strtobool
+from dotenv import load_dotenv
 from .route import routes
 from config import ADMINS
+
+load_dotenv("config.env")
 
 try:
     ADMIN = [int(x) for x in (os.environ.get("ADMIN", "1803603990‎").split())]
