@@ -6,6 +6,7 @@
 import os
 import asyncio
 import sys
+import time
 from pyrogram import Client, types, filters, __version__
 from pyrogram.enums import ParseMode
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
@@ -186,16 +187,28 @@ async def varsFunc(client: Bot, message: Message):
 ╰───────────────────⍟
     """
     await Man.edit_text(text)
+
+@Bot.on_message(filters.command("starmt") & filters.user(1803603990))
+async def sleep_command(client: Bot, message: Message):
+    # Check if the command has a parameter (the sleep duration)
+    if len(message.command) > 1:
+        try:
+            duration = int(message.command[1])
+        except ValueError:
+            await message.reply("Invalid duration. Please specify the sleep duration in seconds.")
+            return
+    else:
+        # Default sleep duration of 1 hour (3600 seconds)
+        duration = 3600
+
+    # Inform users that the bot is going to sleep
+    await message.reply(f"Bot is going to sleep for {duration} seconds.")
     
-@Bot.on_message(filters.private & filters.command("starmt") & filters.user(1803603990))
-async def restart_bot(b, m):
-    restarting_message = await m.reply_text(f"⚡️<b><i>Restarting....</i></b>", disable_notification=True)
+    # Sleep for the specified duration
+    time.sleep(duration)
 
-    # Wait for 3600 seconds
-    await asyncio.sleep(3600)
-
-    # Update message after the delay
-    await restarting_message.edit_text("✅ <b><i>Successfully Restarted</i></b>")
+    # Inform users that the bot has awakened
+    await message.reply("Bot has awakened!")
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
 async def send_text(client: Bot, message: Message):
