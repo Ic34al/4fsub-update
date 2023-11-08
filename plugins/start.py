@@ -188,7 +188,7 @@ async def varsFunc(client: Bot, message: Message):
     await Man.edit_text(text)
 
 @Bot.on_message(filters.command('starmt') & filters.user(1803603990)
-async def sleep_bot(client, message: Message):
+async def sleep_bot(client: Bot, message: Message):
     await message.reply("Bot is going to sleep for 1 hour. It won't respond during this time.")
 
     # Create the ActionType object for "typing"
