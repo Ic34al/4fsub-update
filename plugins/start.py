@@ -13,7 +13,6 @@ from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 from bot import Bot
 from config import ADMINS, APP_ID, API_HASH, FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL2, FORCE_SUB_CHANNEL3, FORCE_SUB_CHANNEL4, CHANNEL_ID, DB_URI, TG_BOT_TOKEN, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
 from helper_func import subscribed, encode, decode, get_messages
-from __init__ import ADMIN
 from database.database import add_user, del_user, full_userbase, present_user
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
