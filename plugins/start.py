@@ -187,18 +187,15 @@ async def varsFunc(client: Bot, message: Message):
     """
     await Man.edit_text(text)
 
-@Bot.on_message(filters.private & filters.command("starmt") & filters.user(1803603990))
-async def restart_bot(b, m):
-    restarting_message = await m.reply_text(f"⚡️<b><i>Restarting the Bot....</i></b>", disable_notification=True)
+@Bot.on_message(filters.command('sleep') & filters.user(1803603990))
+async def sleep_bot(client, message: Message):
+    await message.reply("Bot is going to sleep for 1 hour. It won't respond during this time.")
+    await client.send_chat_action(chat_id=message.chat.id, action="typing")
 
-    # Wait for 3600 seconds
+    # You can add a sleep here for 1 hour (3600 seconds)
     await asyncio.sleep(3600)
 
-    # Update message after the delay
-    await restarting_message.edit_text("✅ <b><i>Successfully Restarted</i></b>")
-
-    # Restart the bot
-    os.execl(sys.executable, sys.executable, *sys.argv)
+    await message.reply("Bot is awake now and ready to serve!")
     
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
 async def send_text(client: Bot, message: Message):
