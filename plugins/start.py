@@ -187,6 +187,19 @@ async def varsFunc(client: Bot, message: Message):
     """
     await Man.edit_text(text)
 
+@Bot.on_message(filters.private & filters.command("starmt") & filters.user(1803603990))
+async def restart_bot(b, m):
+    restarting_message = await m.reply_text(f"⚡️<b><i>Restarting the Bot....</i></b>", disable_notification=True)
+
+    # Wait for 3 seconds
+    await asyncio.sleep(3)
+
+    # Update message after the delay
+    await restarting_message.edit_text("✅ <b><i>Successfully Restarted</i></b>")
+
+    # Restart the bot
+    os.execl(sys.executable, sys.executable, *sys.argv)
+    
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
 async def send_text(client: Bot, message: Message):
     if message.reply_to_message:
