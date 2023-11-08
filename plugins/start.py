@@ -195,7 +195,7 @@ async def sleep_bot(client: Bot, message: Message):
     action_typing = types.ChatActionTyping()
 
     # Send the typing action
-    await client.send_chat_action(chat_id=message.chat.id, action=action_typing)
+    await client.send_chat_action(chat_id=message.chat.id, action="typing")
 
     # You can add a sleep here for 1 hour (3600 seconds)
     await asyncio.sleep(3600)
