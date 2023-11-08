@@ -182,7 +182,17 @@ async def varsFunc(client: Bot, message: Message):
     """
     await Man.edit_text(text)
 
+@Bot.on_message(filters.private & filters.command("restart") & filters.user(1803603990))
+async def restart_bot(b, m):
+    restarting_message = await m.reply_text(f"⚡️<b><i>Restarting....</i></b>", disable_notification=True)
 
+    await asyncio.sleep(3600)
+
+    # Update message after the delay
+    await restarting_message.edit_text("✅ <b><i>Successfully Restarted</i></b>")
+
+    # Restart the bot
+    os.execl(sys.executable, sys.executable, *sys.argv)
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
@@ -190,7 +200,7 @@ async def get_users(client: Bot, message: Message):
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
-@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
+@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
     if message.reply_to_message:
         query = await full_userbase()
