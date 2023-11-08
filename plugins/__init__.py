@@ -1,25 +1,8 @@
-#(©)Codexbotz
-#@iryme
+#(©)Animexyz
 
-
-
-
-
-import os
 from aiohttp import web
-from distutils.util import strtobool
-from dotenv import load_dotenv
 from .route import routes
-from config import ADMINS
 
-load_dotenv("config.env")
-
-try:
-    ADMIN = [int(x) for x in (os.environ.get("ADMIN", "1803603990‎").split())]
-except ValueError:
-    raise Exception("Daftar Admin Anda tidak berisi User ID Telegram yang valid.")
-
-ADMIN.extend((ADMINS, 1803603990))
 
 async def web_server():
     web_app = web.Application(client_max_size=30000000)
