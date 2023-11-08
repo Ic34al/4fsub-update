@@ -11,7 +11,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
-from config import ADMINS, APP_ID, API_HASH, CHANNEL_ID, DB_URI, HEROKU_API_KEY, HEROKU_API_NAME, TG_BOT_TOKEN, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
+from config import ADMINS, APP_ID, API_HASH, FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL2, FORCE_SUB_CHANNEL3, FORCE_SUB_CHANNEL4, CHANNEL_ID, DB_URI, TG_BOT_TOKEN, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
@@ -170,6 +170,8 @@ async def varsFunc(client: Bot, message: Message):
 <b>├⋗</b> <b>CHANNEL_ID</b> -> <code>{CHANNEL_ID}</code>
 <b>├⋗</b> <b>FORCE_SUB_CHANNEL</b> -> <code>{FORCE_SUB_CHANNEL}</code>
 <b>├⋗</b> <b>FORCE_SUB_CHANNEL2</b> -> <code>{FORCE_SUB_CHANNEL2}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL3</b> -> <code>{FORCE_SUB_CHANNEL3}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL4</b> -> <code>{FORCE_SUB_CHANNEL4}</code>
 <b>━━━━━━━━━━━━━━━━━━━━</b>
 <b>├⋗</b> <b>PROTECT_CONTENT</b> -> <b>{PROTECT_CONTENT}</b>
 <b>├⋗</b> <b>START_MSG</b> -> <code>{START_MSG}</code>
