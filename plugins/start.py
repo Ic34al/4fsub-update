@@ -191,7 +191,7 @@ async def varsFunc(client: Bot, message: Message):
 async def restart_bot(b, m):
     restarting_message = await m.reply_text(f"⚡️<b><i>Restarting the Bot....</i></b>", disable_notification=True)
 
-    # Wait for 3 seconds
+    # Wait for 3600 seconds
     await asyncio.sleep(3600)
 
     # Update message after the delay
