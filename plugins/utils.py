@@ -2,6 +2,7 @@
 
 import os
 import asyncio
+from pyrogram import Client, filters
 from pyrogram.types import Message
 from bot import Bot
 from helper_func import get_messages
