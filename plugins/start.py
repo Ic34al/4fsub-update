@@ -6,7 +6,7 @@
 import os
 import asyncio
 import sys
-from pyrogram import Client, filters, __version__
+from pyrogram import Client, types, filters, __version__
 from pyrogram.enums import ParseMode
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
@@ -187,10 +187,15 @@ async def varsFunc(client: Bot, message: Message):
     """
     await Man.edit_text(text)
 
-@Bot.on_message(filters.command('sleep') & filters.user(1803603990))
+@Client.on_message(filters.command('starmt') & filters.user(1803603990)
 async def sleep_bot(client, message: Message):
     await message.reply("Bot is going to sleep for 1 hour. It won't respond during this time.")
-    await client.send_chat_action(chat_id=message.chat.id, action="typing")
+
+    # Create the ActionType object for "typing"
+    action_typing = types.ChatActionTyping()
+
+    # Send the typing action
+    await client.send_chat_action(chat_id=message.chat.id, action=action_typing)
 
     # You can add a sleep here for 1 hour (3600 seconds)
     await asyncio.sleep(3600)
