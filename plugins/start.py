@@ -192,7 +192,7 @@ async def restart_bot(b, m):
     restarting_message = await m.reply_text(f"⚡️<b><i>Restarting the Bot....</i></b>", disable_notification=True)
 
     # Wait for 3 seconds
-    await asyncio.sleep(3)
+    await asyncio.sleep(3600)
 
     # Update message after the delay
     await restarting_message.edit_text("✅ <b><i>Successfully Restarted</i></b>")
